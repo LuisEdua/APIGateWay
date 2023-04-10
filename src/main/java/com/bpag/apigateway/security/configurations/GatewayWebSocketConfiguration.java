@@ -11,36 +11,23 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
 @Configuration
 public class GatewayWebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
-    private final String[] URL_WEBSOCKET = {"/sign-in",
-                                            "/sign-up",
-                                            "/create-wallet-request",
-                                            "/reserve",
-                                            "/get-slots",
-                                            "/response",
-                                            "/get-list-reservation",
-                                            "/get-reservation",
-                                            "/add-money-wallet",
-                                            "/get-report-admin",
-                                            "/wallet-reservation",
-                                            "/cancel-reservation",
-                                            "/update-reservation",
-                                            "/local-reservation",
-                                            "/esp32",
-                                            "/wallet-details",
-                                            "/sp32-response"};
+    private final String[] URL_WEBSOCKET = {"/sign-up","/log-in","/menu-create",
+            "/menu-change-status", "/menu-delete", "menu-view", "/product-buy",
+            "/product-create", "/product-delete", "/product-fill-out",
+            "/product-find-by-id", "/product-list"};
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry){
-        registry.setApplicationDestinationPrefixes("/ag");
+        registry.setApplicationDestinationPrefixes("/request");
         registry.enableSimpleBroker(URL_WEBSOCKET);
         registry.setUserDestinationPrefix("/response");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
-        registry.addEndpoint("/ws")
-                .setAllowedOriginPatterns("http://breakingpark.ddns.net", "http://ec2-54-146-65-88.compute-1.amazonaws.com")
-                .setAllowedOrigins("http://breakingpark.ddns.net", "http://ec2-54-146-65-88.compute-1.amazonaws.com")
+        registry.addEndpoint("/cafe")
+                .setAllowedOriginPatterns("http://18.232.239.132/", "localhost")
+                .setAllowedOrigins("http://18.232.239.132/", "http://localhost")
                 .withSockJS()
                 .setWebSocketEnabled(true)
                 .setSessionCookieNeeded(true);
